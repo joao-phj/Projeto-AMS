@@ -34,30 +34,31 @@ class Verificacao:
     essencial: bool   # precisa entrar no laudo para a confiança suficiente
 
 
-# O caso "pedidos travados na fila do agente": três hipóteses concorrentes
-# (limite de cota da API, credencial vencida, fila do provedor instável).
+# ...
+# O caso "máquina com aquecimento e vibração elevada": três hipóteses
+# concorrentes (desgaste excessivo do rolamento, falha de lubrificação,
+# sensor de temperatura fora de calibração).
 CASO_PEQUENO: tuple[Verificacao, ...] = (
-    Verificacao("chamar a rota de saúde do provedor", 2.0, False, True),
-    Verificacao("conferir o painel de cota da chave", 3.0, True, True),
-    Verificacao("renovar a credencial em ambiente isolado", 8.0, False, True),
-    Verificacao("olhar o log do último pedido bem-sucedido", 5.0, False, False),
-    Verificacao("reproduzir o erro com carga mínima", 12.0, False, False),
-    Verificacao("comparar a latência fora e dentro da rede", 10.0, True, False),
+    Verificacao("revisar a leitura de temperatura do processo", 2.0, False, True),
+    Verificacao("conferir o histórico de falhas e indicadores TWF/HDF/PWF", 3.0, True, True),
+    Verificacao("validar torque e rotação em vazio", 6.0, False, True),
+    Verificacao("confirmar se a intervenção exige LOTO antes do início", 2.0, True, True),
+    Verificacao("inspecionar desgaste do rolamento e vibração", 7.0, False, False),
+    Verificacao("comparar leitura do sensor com termômetro de referência", 10.0, True, False),
 )
 
 CASO_MAIOR: tuple[Verificacao, ...] = (
-    Verificacao("chamar a rota de saúde do provedor", 2.0, False, True),
-    Verificacao("conferir o painel de cota da chave", 3.0, True, True),
-    Verificacao("renovar a credencial em ambiente isolado", 8.0, False, True),
-    Verificacao("abrir o painel de erros 5xx do gateway", 4.0, False, True),
-    Verificacao("conferir o limite de requisições por minuto", 3.0, False, True),
-    Verificacao("olhar o log do último pedido bem-sucedido", 5.0, False, False),
-    Verificacao("reproduzir o erro com carga mínima", 12.0, False, False),
-    Verificacao("comparar a latência fora e dentro da rede", 10.0, True, False),
-    Verificacao("pedir rastro a um cliente que funciona", 15.0, False, False),
-    Verificacao("conferir o versionamento do certificado TLS", 9.0, False, False),
-    Verificacao("medir o relógio do servidor contra o NTP", 6.0, False, False),
-    Verificacao("inspecionar a fila de mensagens mortas", 11.0, True, False),
+    Verificacao("revisar a leitura de temperatura do processo", 2.0, False, True),
+    Verificacao("conferir o histórico de falhas e indicadores TWF/HDF/PWF", 3.0, True, True),
+    Verificacao("validar torque e rotação em vazio", 6.0, False, True),
+    Verificacao("confirmar se a intervenção exige LOTO antes do início", 2.0, True, True),
+    Verificacao("consultar a documentação de NR-10/NR-12/NR-35 aplicáveis", 4.0, False, True),
+    Verificacao("inspecionar desgaste do rolamento e vibração", 7.0, False, False),
+    Verificacao("comparar leitura do sensor com termômetro de referência", 10.0, True, False),
+    Verificacao("verificar se o sistema de arrefecimento está comprometido", 9.0, False, False),
+    Verificacao("revisar registro de torque máximo anterior", 8.0, False, False),
+    Verificacao("conferir histórico de paradas por falha de lubrificação", 6.0, False, False),
+    Verificacao("checar nível de lubrificante e contaminação", 11.0, True, False),
 )
 
 
