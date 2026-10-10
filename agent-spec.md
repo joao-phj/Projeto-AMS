@@ -76,8 +76,15 @@ Perguntas que guiam o preenchimento (uma por dimensão):
 -->
 **Quando se preenche:** no Laboratório 02, no sábado (encontro 2).
 
-[uma linha por dimensão: a classificação e a frase de
-justificativa — começando por observabilidade e determinismo]
+| Dimensão | Minha classificação | Justificativa (uma frase) |
+|---|---|---|
+| Observabilidade | parcial | O ambiente é limitado aos sensores que tem a disposição, demais aspectos que podem perifericamente afetar esses sensores são desconsiderados |
+| Número de agentes | único | Apenas um agente realiza a avaliação e recomendação pautado nas normas e valores dos sensores |
+| Determinismo | determinístico | Os mesmos dados provenientes dos mesmos sensores para duas maquinas identicas retornam o mesmo valor |
+| Episódico ou sequencial | sequencial | A decisam de realizar o bloqueio geram alterações no estado da máquina |
+| Estático ou dinâmico | dinâmico | A latência da resposta pode acarretar em alterações no estado da máquina e consequentemente alteração no score |
+| Discreto ou contínuo | discreto | É possível enumerar o score e estados, logo, é discreto |
+| Conhecido ou desconhecido | conhecido | É conhecido as normas e os valores dos sensores, tornanando assim o ambiente conhecido |
 
 ---
 
