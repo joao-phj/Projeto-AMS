@@ -19,7 +19,13 @@ não é rótulo aqui: a linha de base perdeu os casos C07 e C08 porque a falha
 intermitente não aparece nas leituras — a informação que decide não está
 na percepção do instante."]
 
-[responda aqui]
+Determinismo - determinístico
+O baseline segue uma série de regras claras (4 IFs comparam os valores do dataset aos limiares), logo o resultado de duas máquinas distintas devem retronar exatamente a mesma classificação para ambas as máquinas. O dataset limitado, não apresentou este caso, mas existe a segurança de que caso houvesse esse seria o reusltado.
+
+Episódico ou sequencial - sequencial
+Para avaliar estados futuros, o dataset não foi populado com os resultados de avaliação do agente, logo não se tornou sequencial este agente e sim estático.
+
+
 
 ## Que tipo de agente o problema realmente exige
 
@@ -30,7 +36,7 @@ segunda condição da linha de base porque o seu ambiente é totalmente
 observável, este é o lugar da justificativa — a escolha do tipo é parte do
 que a rubrica avalia.]
 
-[responda aqui]
+Reativo simples, não precisa de estado interno. Uma comparação simples com os limiares estipulados, assim que ajustados, é suficiente para a formulação da sugestão de açao referente a máquina. Não necessita de objetivos nem busca. 
 
 ## O que isto muda no projeto (fecho, três ou quatro linhas)
 
@@ -39,4 +45,4 @@ seu agente com modelo funcionar melhor que a linha de base — novo sensor,
 novo dado, verificador externo? Onde a linha de base é competitiva, e por
 quê isso é informação valiosa e não fracasso.]
 
-[responda aqui]
+O projeto necessita de uma melhor linha de avaliação, mais dados relativos ao histórico de falhas para melhor escolher ações para a máquina. Mais consideração do dataset original e suas possiveis ramificações no funcionamento e seleção do agente. A linha de base eh competitiva em casos medianos, onde o resultado se encontra no intermédio dos limiares, demais casos provaram ser dificeis de classificar.

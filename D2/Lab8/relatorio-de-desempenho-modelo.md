@@ -12,45 +12,61 @@ nada das seções.
 
 ## 1. A métrica primária
 
-[Nome da métrica do seu PEAS, com a fórmula ou o procedimento de cálculo —
-como se calcula, sem ambiguidade. Ex.: acerto da decisão — casos com
-decisão igual à rotulada, sobre o total.]
+Score = 0,5 × recall de risco alto + 0,3 × acurácia de normas + 0,2 × acurácia de LOTO
 
 ## 2. O valor
 
-[A saída do `medir.py`, colada: valor, acertos/total. Ex.: 25/30 = 0.8333.]
+Métrica primária: acerto da decisão (casos com decisão igual à rotulada, sobre o total)
+Valor: 5/30 = 0.1667
+Conjunto: casos-de-reserva-4.csv — 30 casos rotulados {'seguir_operando': 19, 'inspecionar_antes_de_operar': 5, 'parar_para_manutencao': 6}
 
 ## 3. O conjunto
 
-[Sobre quais casos: o arquivo, quantos são, de que período, como se
-distribuem pelos rótulos. Se usou o conjunto de reserva do `D2-06`,
-declare aqui — sem demérito; a exigência é a declaração.]
+Usei o conjunto de reserva, adaptando para o o dataset ai4i2020.csv
 
 ## 4. Onde o agente erra
 
-[A lista de erros que o `medir.py` imprime, colada. Depois, dois
-parágrafos: o PADRÃO dos erros (todos do mesmo tipo? concentrados em
-quais casos?) e a HIPÓTESE do porquê — o que o agente não enxerga quando
-erra. Isto é a matéria-prima da análise do item 5.]
+Onde erra (o rótulo que o agente não deu):
+  caso C01: decidiu inspecionar_antes_de_operar, correto era seguir_operando
+  caso C02: decidiu inspecionar_antes_de_operar, correto era seguir_operando
+  caso C03: decidiu inspecionar_antes_de_operar, correto era seguir_operando
+  caso C06: decidiu inspecionar_antes_de_operar, correto era seguir_operando
+  caso C07: decidiu inspecionar_antes_de_operar, correto era seguir_operando
+  caso C08: decidiu inspecionar_antes_de_operar, correto era seguir_operando
+  caso C09: decidiu parar_para_manutencao, correto era seguir_operando
+  caso C10: decidiu parar_para_manutencao, correto era seguir_operando
+  caso C11: decidiu parar_para_manutencao, correto era seguir_operando
+  caso C12: decidiu inspecionar_antes_de_operar, correto era seguir_operando
+  caso C13: decidiu inspecionar_antes_de_operar, correto era seguir_operando
+  caso C14: decidiu parar_para_manutencao, correto era seguir_operando
+  caso C15: decidiu parar_para_manutencao, correto era seguir_operando
+  caso C16: decidiu inspecionar_antes_de_operar, correto era seguir_operando
+  caso C17: decidiu inspecionar_antes_de_operar, correto era seguir_operando
+  caso C18: decidiu inspecionar_antes_de_operar, correto era seguir_operando
+  caso C20: decidiu parar_para_manutencao, correto era seguir_operando
+  caso C21: decidiu inspecionar_antes_de_operar, correto era parar_para_manutencao
+  caso C22: decidiu inspecionar_antes_de_operar, correto era parar_para_manutencao
+  caso C23: decidiu inspecionar_antes_de_operar, correto era parar_para_manutencao
+  caso C24: decidiu inspecionar_antes_de_operar, correto era parar_para_manutencao
+  caso C26: decidiu inspecionar_antes_de_operar, correto era parar_para_manutencao
+  caso C27: decidiu parar_para_manutencao, correto era inspecionar_antes_de_operar
+  caso C28: decidiu inspecionar_antes_de_operar, correto era parar_para_manutencao
+  caso C29: decidiu parar_para_manutencao, correto era inspecionar_antes_de_operar
 
 ## 5. A tabela comparativa de busca (item 4 da N2)
 
-[Cole aqui a tabela completa dos laboratórios 04 e 05 — as 4 linhas não
-informadas e as 4 informadas. Exemplo da forma (os números são os SEUS):]
+| Busca | Custo | Ações | Nós expandidos | Nós gerados | Prof. máx. | Segundos |
+|---|---:|---:|---:|---:|---:|---:|
+| largura | 17.0 | 5 | 1938 | 4246 | 5 | 0.0125 |
+| custo_uniforme | 17.0 | 5 | 382 | 1289 | 5 | 0.0023 |
+| profundidade_limitada(limite=32) | 17.0 | 5 | 6 | 5 | 5 | 0.0 |
+| aprofundamento_iterativo(limite=32) | 17.0 | 5 | 880 | 2689 | 5 | 0.004 |
 
 | Busca | Custo | Ações | Nós expandidos | Nós gerados | Prof. máx. | Segundos |
 |---|---:|---:|---:|---:|---:|---:|
-| largura | 20.0 | 5 | 2786 | 6744 | 5 | 0.0084 |
-| custo_uniforme | 20.0 | 5 | 550 | 1954 | 6 | 0.0027 |
-| profundidade_limitada(limite=32) | 20.0 | 5 | 6 | 5 | 5 | 0.0001 |
-| aprofundamento_iterativo(limite=32) | 20.0 | 5 | 1192 | 3749 | 5 | 0.0057 |
-| gulosa[admissivel] | 20.0 | 5 | 6 | 50 | 5 | 0.0001 |
-| a_estrela[admissivel] | 20.0 | 5 | 77 | 297 | 5 | 0.0008 |
-| gulosa[inadmissivel] | 83.0 | 11 | 12 | 77 | 11 | 0.0002 |
-| a_estrela[inadmissivel] | 77.0 | 10 | 11 | 75 | 10 | 0.0002 |
+| gulosa[admissivel] | 17.0 | 5 | 6 | 45 | 5 | 0.0001 |
+| a_estrela[admissivel] | 17.0 | 5 | 77 | 266 | 5 | 0.0003 |
+| gulosa[inadmissivel] | 68.0 | 11 | 12 | 66 | 11 | 0.0001 |
+| a_estrela[inadmissivel] | 47.0 | 8 | 9 | 60 | 8 | 0.0001 |
 
-[A pergunta do item 4: o A estrela com a heurística admissível manteve o
-custo ótimo e expandiu menos que o custo uniforme? Quanto economizou, e o
-que isso diz do seu espaço de estados? Registre também a ressalva de
-contagem da profundidade limitada — reconhecer o limite da própria
-medição vale nota.]
+o A estrela não manteve custo ótimo e expandiu significativemnte menos que o custo uniforme. Ele economizou cerca de 0.0022 segundos. Isso indica que meu espaço de estado talvez não tenha profundida necessária para avaliar a fundo essas buscas. 
