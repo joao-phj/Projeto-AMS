@@ -177,5 +177,69 @@ Perguntas que guiam o preenchimento:
 -->
 **Quando se preenche:** no Laboratório 03, sábado à tarde (encontro 2).
 
-[os cinco componentes do seu subproblema: estado inicial,
-ações, transição, teste de objetivo, custo]
+class Diagnostico:
+    def __init__(self, verificacoes: tuple[Verificacao, ...]):
+        self.verificacoes = verificacoes
+        self._por_nome = {v.nome: v for v in verificacoes}
+        self.estado_inicial: tuple[tuple[str, ...], tuple[str, ...]] = ((), ())
+
+    def acoes(self, estado: tuple[tuple[str, ...], tuple[str, ...]]) -> list[str]:
+        feitas, _ = estado
+        return [v.nome for v in self.verificacoes if v.nome not in feitas]
+
+    def transicao(
+        self, estado: tuple[tuple[str, ...], tuple[str, ...]], acao: str,
+    ) -> tuple[tuple[str, ...], tuple[str, ...]]:
+        feitas, positivas = estado
+        verificacao = self._por_nome[acao]
+        novas_feitas = tuple(sorted((*feitas, acao)))
+        if verificacao.positivo:
+            return novas_feitas, tuple(sorted((*positivas, acao)))
+        return novas_feitas, positivas
+
+    def objetivo(self, estado: tuple[tuple[str, ...], tuple[str, ...]]) -> bool:
+        feitas, _ = estado
+        essenciais = {v.nome for v in self.verificacoes if v.essencial}
+        return essenciais.issubset(feitas)
+
+    def custo(
+        self,
+        estado: tuple[tuple[str, ...], tuple[str, ...]],
+        acao: str,
+        estado_seguinte: tuple[tuple[str, ...], tuple[str, ...]],
+    ) -> float:
+        return self._por_nome[acao].tempo
+
+    def heuristica_admissivel(
+        self, estado: tuple[tuple[str, ...], tuple[str, ...]],
+    ) -> float:
+        """Soma dos tempos das essenciais que ainda faltam.
+
+        Admissível: cada essencial que falta ainda precisará ser feita e
+        custa exatamente o seu tempo — o laudo não fecha sem elas. Ignora
+        as não essenciais, que nunca são obrigatórias.
+        """
+        feitas, _ = estado
+        return sum(
+            v.tempo for v in self.verificacoes if v.essencial and v.nome not in feitas
+        )
+
+    def heuristica_inadmissivel(
+        self, estado: tuple[tuple[str, ...], tuple[str, ...]],
+    ) -> float:
+        """O progresso que desconta: o que falta vale 3×, o que foi feito abate 2×.
+
+        NÃO é admissível, e é tentadora por isso: "quanto falta ainda é o
+        problema, e cada coisa que já chequei me adiantou" é a contagem de
+        progresso que se escreve de primeira — ela trata verificação cara e
+        barata como o mesmo passo e abate o feito duas vezes. Superestima o
+        trecho que falta quando a essencial pendente é barata, vira negativa
+        quando já se gastou tempo de mais, e faz o A* preferir caminhos que
+        acumulam verificações — o caminho devolvido sai mais caro que o
+        ótimo (o lab-05 mede isso).
+        """
+        feitas, _ = estado
+        faltam = sum(v.tempo for v in self.verificacoes
+                     if v.essencial and v.nome not in feitas)
+        ja_feito = sum(self._por_nome[nome].tempo for nome in feitas)
+        return 3.0 * faltam - 2.0 * ja_feito
