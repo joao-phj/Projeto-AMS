@@ -160,8 +160,16 @@ Perguntas que guiam o preenchimento:
 **Quando se preenche:** na Atividade Orientada — o pacote `D2-07` traz o
 modelo da tabela e dois exemplos preenchidos.
 
-[tabela: nome · entrada · saída · é reversível? · risco se
-errar — ações de leitura e de escrita]
+| Ação | Entrada | Saída | É reversível? | Risco se errar |
+|---|---|---|---|---|
+| ler sensores | valores dos sensores | sugestão de ação relativo aquela máquina | sim | parada ou continuação inadequada da máquina |
+| consultar normas | normas aplicaveis de intervenção | intervenções aplicaveis aquela máquina | sim | ausência de uma norma pertinente ou ausência de uma nroma adequada |
+| consultar histórico de manutenção | histórico de manutenção da máquina | avaliação de risco da máquina | sim | qualificação de risco inadequada da máquina |
+| sugerir parada | leitura de sensores, tipo de máquina e histórico de manutenção | decisão de ação sobre a máquina | não | ação incorreta tomada perante a máquina |
+
+**Quem executa cada ação** o agente sozinho
+
+**O que o agente JAMAIS executa sozinho:** desligar uma maquina
 
 ---
 
